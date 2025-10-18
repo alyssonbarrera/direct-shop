@@ -3,47 +3,47 @@ import '@/global.css';
 import { NAV_THEME } from '@/core/lib/theme';
 import { ThemeProvider } from '@react-navigation/native';
 import { PortalHost } from '@rn-primitives/portal';
-import { SplashScreen, Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
+import { Stack } from 'expo-router';
 import { useColorScheme } from 'nativewind';
-import { initialWindowMetrics, SafeAreaProvider } from 'react-native-safe-area-context';
 import { useAuthStore } from '@/core/stores/auth-store';
-import { useEffect } from 'react';
+import { ActivityIndicator, View } from 'react-native';
+import { KeyboardProvider } from 'react-native-keyboard-controller';
+import { initialWindowMetrics, SafeAreaProvider } from 'react-native-safe-area-context';
 
 export { ErrorBoundary } from 'expo-router';
-
-SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const { colorScheme } = useColorScheme();
   const { isLoggedIn, _hasHydrated } = useAuthStore();
 
-  useEffect(() => {
-    if (_hasHydrated) {
-      SplashScreen.hideAsync();
-    }
-  }, [_hasHydrated]);
-
   if (!_hasHydrated) {
-    return null;
+    return (
+      <View className="flex-1 items-center justify-center bg-background">
+        <ActivityIndicator size="large" />
+      </View>
+    );
   }
 
   return (
-    <ThemeProvider value={NAV_THEME[colorScheme ?? 'light']}>
-      <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'} />
-      <SafeAreaProvider initialMetrics={initialWindowMetrics}>
-        <Stack>
-          <Stack.Protected guard={isLoggedIn}>
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          </Stack.Protected>
-          <Stack.Protected guard={!isLoggedIn}>
-            <Stack.Screen name="sign-in" options={{ headerShown: false }} />
-            <Stack.Screen name="sign-up" options={{ headerShown: false }} />
-            <Stack.Screen name="forgot-password" options={{ headerShown: false }} />
-          </Stack.Protected>
-        </Stack>
-        <PortalHost />
-      </SafeAreaProvider>
-    </ThemeProvider>
+    <SafeAreaProvider initialMetrics={initialWindowMetrics}>
+      <KeyboardProvider>
+        <ThemeProvider value={NAV_THEME[colorScheme ?? 'light']}>
+          <Stack>
+            <Stack.Protected guard={isLoggedIn}>
+              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            </Stack.Protected>
+            <Stack.Protected guard={!isLoggedIn}>
+              <Stack.Screen name="sign-in" options={{ headerShown: false, animation: 'fade' }} />
+              <Stack.Screen name="sign-up" options={{ headerShown: false, animation: 'fade' }} />
+              <Stack.Screen
+                name="forgot-password"
+                options={{ headerShown: false, animation: 'fade' }}
+              />
+            </Stack.Protected>
+          </Stack>
+          <PortalHost />
+        </ThemeProvider>
+      </KeyboardProvider>
+    </SafeAreaProvider>
   );
 }

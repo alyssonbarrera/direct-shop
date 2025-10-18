@@ -9,26 +9,29 @@ const isAndroid = Platform.OS === 'android';
 export default function TabsLayout() {
   if (isAndroid) {
     return (
-      <Tabs screenOptions={{ headerShown: false }}>
+      <Tabs
+        screenOptions={{
+          headerShown: false,
+        }}>
         <Tabs.Screen
           name="index"
           options={{
             title: 'Início',
-            tabBarIcon: () => <CustomIcon as={Home} className="text-white dark:text-white" />,
+            tabBarIcon: () => <CustomIcon as={Home} className="text-dark dark:text-white" />,
           }}
         />
         <Tabs.Screen
           name="profile"
           options={{
             title: 'Perfil',
-            tabBarIcon: () => <CustomIcon as={User} className="text-white dark:text-white" />,
+            tabBarIcon: () => <CustomIcon as={User} className="text-dark dark:text-white" />,
           }}
         />
         <Tabs.Screen
           name="settings"
           options={{
             title: 'Configurações',
-            tabBarIcon: () => <CustomIcon as={Settings} className="text-white dark:text-white" />,
+            tabBarIcon: () => <CustomIcon as={Settings} className="text-dark dark:text-white" />,
           }}
         />
       </Tabs>
