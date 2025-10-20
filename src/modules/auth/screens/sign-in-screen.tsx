@@ -1,15 +1,16 @@
 import { SignInForm } from '@/modules/auth/forms/sign-in-form';
-import { ScrollView, View } from 'react-native';
+import { View } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
 
 export function SignInScreen() {
   return (
-    <ScrollView
+    <KeyboardAwareScrollView
       keyboardShouldPersistTaps="handled"
-      contentContainerClassName="flex-1 items-center justify-center p-4 py-8"
-      keyboardDismissMode="interactive">
+      keyboardDismissMode="interactive"
+      contentContainerClassName="flex-1 items-center justify-center">
       <View className="w-full max-w-sm">
         <SignInForm />
       </View>
-    </ScrollView>
+    </KeyboardAwareScrollView>
   );
 }

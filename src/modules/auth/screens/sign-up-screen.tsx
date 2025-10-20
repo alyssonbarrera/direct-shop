@@ -1,15 +1,16 @@
-import { ScrollView, View } from 'react-native';
+import { View } from 'react-native';
 import { SignUpForm } from '../forms/sign-up-form';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-controller';
 
 export function SignUpScreen() {
   return (
-    <ScrollView
+    <KeyboardAwareScrollView
       keyboardShouldPersistTaps="handled"
-      contentContainerClassName="flex-1 items-center justify-center p-4 py-8"
-      keyboardDismissMode="interactive">
+      keyboardDismissMode="interactive"
+      contentContainerClassName="flex-1 items-center justify-center">
       <View className="w-full max-w-sm">
         <SignUpForm />
       </View>
-    </ScrollView>
+    </KeyboardAwareScrollView>
   );
 }

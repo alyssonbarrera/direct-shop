@@ -38,15 +38,10 @@ export function useSignUpForm() {
     });
   }
 
-  function redirectToSignIn() {
-    router.navigate('/sign-in');
-  }
-
   return {
     form,
     onSubmit,
     onNameSubmitEditing,
     onEmailSubmitEditing,
-    redirectToSignIn,
   };
 }
