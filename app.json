@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "direct-shop",
+    "name": "Direct Shop",
     "slug": "direct-shop",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -21,6 +21,7 @@
       "bundleIdentifier": "com.alyssonbarrera.direct-shop"
     },
     "android": {
+      "backgroundColor": "#000000",
       "edgeToEdgeEnabled": true,
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
@@ -35,7 +36,51 @@
     },
     "plugins": [
       "expo-router",
-      "expo-secure-store"
+      "expo-secure-store",
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/OpenSans-Regular.ttf",
+            "./assets/fonts/OpenSans-Medium.ttf",
+            "./assets/fonts/OpenSans-SemiBold.ttf",
+            "./assets/fonts/OpenSans-Bold.ttf"
+          ],
+          "android": {
+            "fonts": [
+              {
+                "fontFamily": "OpenSans",
+                "fontDefinitions": [
+                  {
+                    "path": "./assets/fonts/OpenSans-Regular.ttf",
+                    "weight": 400
+                  },
+                  {
+                    "path": "./assets/fonts/OpenSans-Medium.ttf",
+                    "weight": 500
+                  },
+                  {
+                    "path": "./assets/fonts/OpenSans-SemiBold.ttf",
+                    "weight": 600
+                  },
+                  {
+                    "path": "./assets/fonts/OpenSans-Bold.ttf",
+                    "weight": 700
+                  }
+                ]
+              }
+            ]
+          },
+          "ios": {
+            "fonts": [
+              "./assets/fonts/OpenSans-Regular.ttf",
+              "./assets/fonts/OpenSans-Medium.ttf",
+              "./assets/fonts/OpenSans-SemiBold.ttf",
+              "./assets/fonts/OpenSans-Bold.ttf"
+            ]
+          }
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true

@@ -8,7 +8,6 @@ import { useColorScheme } from 'nativewind';
 import { useAuthStore } from '@/core/stores/auth-store';
 import { ActivityIndicator, View } from 'react-native';
 import { KeyboardProvider } from 'react-native-keyboard-controller';
-import { initialWindowMetrics, SafeAreaProvider } from 'react-native-safe-area-context';
 
 export { ErrorBoundary } from 'expo-router';
 
@@ -25,25 +24,26 @@ export default function RootLayout() {
   }
 
   return (
-    <SafeAreaProvider initialMetrics={initialWindowMetrics}>
-      <KeyboardProvider>
-        <ThemeProvider value={NAV_THEME[colorScheme ?? 'light']}>
-          <Stack>
-            <Stack.Protected guard={isLoggedIn}>
-              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            </Stack.Protected>
-            <Stack.Protected guard={!isLoggedIn}>
-              <Stack.Screen name="sign-in" options={{ headerShown: false, animation: 'fade' }} />
-              <Stack.Screen name="sign-up" options={{ headerShown: false, animation: 'fade' }} />
-              <Stack.Screen
-                name="forgot-password"
-                options={{ headerShown: false, animation: 'fade' }}
-              />
-            </Stack.Protected>
-          </Stack>
-          <PortalHost />
-        </ThemeProvider>
-      </KeyboardProvider>
-    </SafeAreaProvider>
+    <KeyboardProvider>
+      <ThemeProvider value={NAV_THEME[colorScheme ?? 'light']}>
+        <Stack
+          screenOptions={{
+            contentStyle: { backgroundColor: NAV_THEME[colorScheme ?? 'light'].colors.background },
+          }}>
+          <Stack.Protected guard={isLoggedIn}>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          </Stack.Protected>
+          <Stack.Protected guard={!isLoggedIn}>
+            <Stack.Screen name="sign-in" options={{ headerShown: false, animation: 'fade' }} />
+            <Stack.Screen name="sign-up" options={{ headerShown: false, animation: 'fade' }} />
+            <Stack.Screen
+              name="forgot-password"
+              options={{ headerShown: false, animation: 'fade' }}
+            />
+          </Stack.Protected>
+        </Stack>
+        <PortalHost />
+      </ThemeProvider>
+    </KeyboardProvider>
   );
 }
